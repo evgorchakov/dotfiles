@@ -1,0 +1,18 @@
+{
+	"installed_packages":
+	[
+		"C Improved",
+		"i3 wm",
+		"Lua Dev",
+		"LuaAutocomplete",
+		"Monokai Extended",
+		"Python Improved",
+		"SideBarEnhancements",
+		"SideBarGit",
+		"SublimeGDB",
+		"SublimeLinter-luacheck",
+		"SyncedSideBar",
+		"Theme - Afterglow",
+		"Theme - Spacegray"
+	]
+}
