@@ -42,6 +42,7 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+source /usr/share/doc/pkgfile/command-not-found.zsh
 alias pacman='sudo pacman'
 alias x='sudo systemctl poweroff'
 alias r='sudo systemctl reboot'
