@@ -27,18 +27,19 @@ bindsym Mod1+Return exec urxvt
 # kill focused window
 bindsym Mod1+x kill
 
-# start dmenu (a program launcher)
-bindsym Mod1+p exec dmenu_run -fn "Ubuntu Mono-50" -x 100 -y 200 -w 1400 -h 150 -nb "#303030" -nf "#a6e22e" -sb "#404040" -sf "#a6e22e"
+# bindsym Mod1+p exec dmenu_run -fn "Ubuntu Mono-40" -nb "#151515" -nf "#d0d0d0" -sb "#151515" -sf "#00c918" -y -50 -h 950
+#
+bindsym Mod1+p exec rofi -show run -font "Ubuntu Mono 50" -fg "#d0d0d0" -bg "#151515" -hlbg "#151515" -hlfg "#00c918" -bw 1 -width 70 -location 0 -lines 1 -bc "#909090"  -columns 3
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym Mod1+j focus left
-bindsym Mod1+k focus down
-bindsym Mod1+l focus up
-bindsym Mod1+semicolon focus right
+bindsym Mod1+h focus left
+bindsym Mod1+j focus down
+bindsym Mod1+k focus up
+bindsym Mod1+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym Mod1+Left focus left
@@ -47,10 +48,10 @@ bindsym Mod1+Up focus up
 bindsym Mod1+Right focus right
 
 # move focused window
-bindsym Mod1+Shift+j move left
-bindsym Mod1+Shift+k move down
-bindsym Mod1+Shift+l move up
-bindsym Mod1+Shift+semicolon move right
+bindsym Mod1+Shift+h move left
+bindsym Mod1+Shift+j move down
+bindsym Mod1+Shift+k move up
+bindsym Mod1+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym Mod1+Shift+Left move left
@@ -59,7 +60,7 @@ bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+h split h
+bindsym Mod1+b split h
 
 # split in vertical orientation
 bindsym Mod1+v split v
@@ -123,7 +124,7 @@ bindsym Mod1+Shift+r restart
 bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # locking
-bindsym Mod1+Ctrl+l exec "i3lock -i ~/.config/i3/lock.png"
+bindsym Mod1+Ctrl+l exec "pixellock" 
 
 # caps lock
 bindsym Caps_Lock mode "CAPS"
@@ -136,6 +137,8 @@ mode "CAPS" {
     bindsym $mod+Caps_Lock mode "default"
 }
 
+
+for_window [class="VidyoDesktop"] floating enable
 # resize window (you can also use the mouse for that)
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
@@ -144,10 +147,10 @@ mode "resize" {
     # Pressing right will grow the window’s width.
     # Pressing up will shrink the window’s height.
     # Pressing down will grow the window’s height.
-    bindsym j           resize shrink width 10 px or 10 ppt
-    bindsym k           resize grow height 10 px or 10 ppt
-    bindsym l           resize shrink height 10 px or 10 ppt
-    bindsym semicolon   resize grow width 10 px or 10 ppt
+    bindsym h           resize shrink width 10 px or 10 ppt
+    bindsym j           resize grow height 10 px or 10 ppt
+    bindsym k           resize shrink height 10 px or 10 ppt
+    bindsym l   resize grow width 10 px or 10 ppt
 
     # same bindings, but for the arrow keys
     bindsym Left        resize shrink width 10 px or 10 ppt
@@ -172,20 +175,20 @@ workspace_auto_back_and_forth yes
 bar {
     position top
     status_command i3status --config ~/.config/i3/i3status.conf
-    font pango: Ubuntu Mono, Icons 12
+    font pango: Ubuntu Mono, Icons 13
     colors {
-        separator #606060
-        background #222222
-        statusline #dddddd
+        separator #1d1f21
+        background #151515
+        statusline #d0d0d0
         #                   border  bg      text
-        focused_workspace   #a6e22e #a6e22e #404040
-        active_workspace    #333333 #333333 #ffffff
-        inactive_workspace  #333333 #333333 #888888
+        focused_workspace   #00c918 #00c918 #151515
+        active_workspace    #00c918 #00c918 #ffffff
+        inactive_workspace  #151515 #151515 #aba800
         urgent_workspace    #2f343a #900000 #ffffff
     }
 }
 #                       border  bg      text    ind                                       
-client.focused          #a6e22e #a6e22e #404040 #a6e22e
-client.focused_inactive #333333 #333333 #888888 #292d2e
-client.unfocused        #333333 #333333 #888888 #292d2e
+client.focused          #00c918 #00c918 #151515 #a6e22e
+client.focused_inactive #202020 #202020 #888888 #292d2e
+client.unfocused        #202020 #202020 #888888 #292d2e
 client.urgent           #2f343a #900000 #ffffff #900000
