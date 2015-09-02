@@ -3,7 +3,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-summerfruit.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+#
+export GOPATH=/home/evg/code/go
+export ANDROID_HOME=/opt/android-sdk
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$GOPATH/bin:/home/evg/.gem/ruby/2.2.0/bin"
 export EDITOR="vim"
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -35,16 +41,18 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # bind P and N for EMACS mode
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 source /usr/share/doc/pkgfile/command-not-found.zsh
+
 alias pacman='sudo pacman'
 alias x='sudo systemctl poweroff'
 alias r='sudo systemctl reboot'
 alias gcc='gcc -fdiagnostics-color=auto'
 alias f='ranger'
+
+alias du='ncdu'
+alias ht="htop -u $(whoami)"
