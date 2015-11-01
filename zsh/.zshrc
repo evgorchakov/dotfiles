@@ -9,7 +9,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-summerfruit.dark.sh"
 #
 export GOPATH=/home/evg/code/go
 export ANDROID_HOME=/opt/android-sdk
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$GOPATH/bin:/home/evg/.gem/ruby/2.2.0/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$GOPATH/bin:/home/evg/.gem/ruby/2.2.0/bin:/usr/bin/core_perl"
 export EDITOR="vim"
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -56,3 +56,4 @@ alias f='ranger'
 
 alias du='ncdu'
 alias ht="htop -u $(whoami)"
+
