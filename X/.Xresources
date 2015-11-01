@@ -1,22 +1,50 @@
-! Molokai theme
-URxvt*background: #101010
-URxvt*foreground: #d0d0d0
-URxvt*color0: #101010
-URxvt*color1: #960050
-URxvt*color2: #66aa11
-URxvt*color3: #c47f2c
-URxvt*color4: #30309b
-URxvt*color5: #7e40a5
-URxvt*color6: #3579a8
-URxvt*color7: #9999aa
-URxvt*color8: #303030
-URxvt*color9: #ff0090
-URxvt*color10: #80ff00
-URxvt*color11: #ffba68
-URxvt*color12: #5f5fee
-URxvt*color13: #bb88dd
-URxvt*color14: #4eb4fa
-URxvt*color15: #d0d0d0
+#define base00 #151515
+#define base01 #202020
+#define base02 #303030
+#define base03 #505050
+#define base04 #B0B0B0
+#define base05 #D0D0D0
+#define base06 #E0E0E0
+#define base07 #FFFFFF
+#define base08 #FF0086
+#define base09 #FD8900
+#define base0A #ABA800
+#define base0B #00C918
+#define base0C #1faaaa
+#define base0D #3777E6
+#define base0E #AD00A1
+#define base0F #cc6633
+
+*.foreground:   base05
+*.background:   base00
+*.cursorColor:  base05
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base08
+*.color10:      base0B
+*.color11:      base0A
+*.color12:      base0D
+*.color13:      base0E
+*.color14:      base0C
+*.color15:      base07
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+ *.color16:      base09
+ *.color17:      base0F
+ *.color18:      base01
+ *.color19:      base02
+ *.color20:      base04
+ *.color21:      base06
 
 ! URxvt*termName:                       string
 ! URxvt*geometry:                       geometry
@@ -86,11 +114,9 @@ URxvt*color15: #d0d0d0
 ! URxvt*pointerColor2:                  color
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
-!  URxvt*font:                           xft:Droid Sans Mono:size=10
-
-  URxvt*font:                           xft:Ubuntu Mono:size=12
-  URxvt*boldFont:                       xft:Droid Sans Mono:bold:size=10
 ! URxvt*italicFont:                     fontname
+  URxvt*font:                           xft:Droid Sans Mono for Powerline:size=12
+  URxvt*boldFont:                       xft:Droid Sans Mono for Powerline:size=12
 ! URxvt*boldItalicFont:                 fontname
 ! URxvt*intensityStyles:                boolean
 ! URxvt*inputMethod:                    name
@@ -106,11 +132,11 @@ URxvt*color15: #d0d0d0
 ! URxvt*transient-for:                  windowid
 ! URxvt*override-redirect:              boolean
 ! URxvt*hold:                           boolean
-! URxvt*externalBorder:                 number
-! URxvt*internalBorder:                 number
-! URxvt*borderLess:                     boolean
+! URxvt*externalBorder:                 20
+! URxvt*internalBorder:                 -20
+! URxvt*borderLess:                     true
 ! URxvt*lineSpace:                      number
-! URxvt*letterSpace:                    number
+URxvt*letterSpace:                    -1
 ! URxvt*skipBuiltinGlyphs:              boolean
 ! URxvt*pointerBlankDelay:              number
 ! URxvt*backspacekey:                   string
