@@ -29,7 +29,7 @@ bindsym Mod1+x kill
 
 # bindsym Mod1+p exec dmenu_run -fn "Ubuntu Mono-40" -nb "#151515" -nf "#d0d0d0" -sb "#151515" -sf "#00c918" -y -50 -h 950
 #
-bindsym Mod1+p exec rofi -show run -font "Ubuntu Mono 50" -fg "#d0d0d0" -bg "#151515" -hlbg "#151515" -hlfg "#00c918" -bw 1 -width 70 -location 0 -lines 1 -bc "#909090"  -columns 3
+bindsym Mod1+p exec rofi -show run -font "Ubuntu Mono 50" -fg "#d0d0d0" -bg "#151515" -hlbg "#151515" -hlfg "#00c918" -bw 1 -width 40 -location 0 -lines 3 -bc "#909090"  -columns 1
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
