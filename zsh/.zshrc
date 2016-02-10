@@ -4,7 +4,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-summerfruit.dark.sh"
+BASE16_SHELL="$HOME/.config/base16-shell/base16-shapeshifter.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 #
 export GOPATH=/home/evg/code/go
@@ -49,11 +49,13 @@ bindkey -M vicmd 'j' history-substring-search-down
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 alias pacman='sudo pacman'
-alias x='sudo systemctl poweroff'
-alias r='sudo systemctl reboot'
 alias gcc='gcc -fdiagnostics-color=auto'
 alias f='ranger'
-
 alias du='ncdu'
 alias ht="htop -u $(whoami)"
+
+alias agenda='gcalcli --calendar="evgorchakov@gmail.com" agenda --nostarted'
+alias today='gcalcli agenda 12am 11:59pm --nostarted'
+alias week='gcalcli --calendar="evgorchakov@gmail.com" calw'
+alias gcal='gcalcli --calendar="evgorchakov@gmail.com"'
 

@@ -1,4 +1,4 @@
-#define base00 #151515
+#define base00 #000000
 #define base01 #202020
 #define base02 #303030
 #define base03 #505050
@@ -7,13 +7,12 @@
 #define base06 #E0E0E0
 #define base07 #FFFFFF
 #define base08 #FF0086
-#define base09 #FD8900
-#define base0A #ABA800
-#define base0B #00C918
-#define base0C #1faaaa
-#define base0D #3777E6
-#define base0E #AD00A1
-#define base0F #cc6633
+#define base09 #F29393
+#define base0A #F8CA12
+#define base0B #37B349
+#define base0C #00AABB
+#define base0D #0E5A94
+#define base0F #7A2D00
 
 *.foreground:   base05
 *.background:   base00

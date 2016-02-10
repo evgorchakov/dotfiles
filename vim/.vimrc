@@ -22,6 +22,11 @@ Plugin 'klen/python-mode'
 Plugin 'fatih/vim-go'
 Plugin 'majutsushi/tagbar'
 
+Plugin 'lervag/vimtex'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'dhruvasagar/vim-table-mode'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -70,8 +75,9 @@ set mouse=a
 
 
 "Color 
+set background=dark
 let base16colorspace=256
-colorscheme base16-summerfruit
+colorscheme base16-shapeshifter
 
 "Airline
 set laststatus=2
@@ -86,6 +92,7 @@ let g:ctrlp_root_markers = ['.ctrlp']
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ctrlp_cmd = 'CtrlPMixed'
+"
 "General
 set autoindent
 set backspace=indent,eol,start
@@ -100,5 +107,15 @@ set exrc
 set secure
 set colorcolumn=80
 
+
+
+"Navigation
+nnoremap <leader><]> :bn<CR>
+nnoremap <leader><[> :bp<CR>
+
 "Filetypes
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
+
+"Table mode
+let g:table_mode_corner_corner="+"
+let g:table_mode_header_fillchar="="

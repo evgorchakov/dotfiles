@@ -1,50 +1,50 @@
-search back
-rename array_tools.c.bak
-search arra
-tou
-shell touch get_dir_der.m
-search csv
-open_console
-search repo
-search mn
-delete y
-search /sc
-dl
-mkdir tmp
-unstage 
-shell unp Lab4.zip 
-filter .c$
-shell mkdir final
-search wine
-search mkdir nexus5
-shell touch get_limits_num.m
-shell touch main_num.m
-search full
-search cs
-shell c
-shell unp Lab4.7z 
-search mnt
-cd
-find 22
-find fi
-search thermal
+cd  
+cd /home/evg/.vim/bundle
+rename main.cpp
+rename drawing.d
+rename drawing.c
+rename drawing.hp
+rename drawing.h
+rename drawing.cpp
+rename drawing.hpp
+y
+find 
+cd /media/
+open_with hex
+open_with hexdump
+mkdir misc
+mkdir resume
 shell 
-find getty
-cd ~
-open_with 
-search sc
-search 
-cd .config/
-find i3
-mkdir i3
-mkdir X
-mkdir x
-relink 
-mkdir zsh
-find dot
-search zsh
-delete 
-
-filter .h$
-cd /mnt/usb/
 shell q
+open_with q
+mkdir 3B
+search_inc edu
+rename MSCI_261_Econ
+rename MTE_322_Machines
+rename STV_210_Hist
+open_with vim
+rename temp2
+touch temp
+rename fuck
+rename 
+search_inc 
+search_inc dicl
+open_with libreoffice
+open_with evince
+rename chapter2_textbook.txt
+rename chapter2_textbook.pdf
+rename ch2.txt
+cd .wine/
+open_with shotwell
+rename Reading a Machine.html
+rename Reading A Machine.html
+r
+po
+rename New Doc 1Page 1.pdf
+open_with unp
+rename request_temp.json
+open_with rrrrrrrr
+open_with 
+rename chapter5_questions.txt
+
+delete 
