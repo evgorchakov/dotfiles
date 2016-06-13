@@ -26,6 +26,7 @@ Plugin 'lervag/vimtex'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'jalvesaq/Nvim-R'
 
 call vundle#end()
 filetype plugin indent on
@@ -42,7 +43,7 @@ filetype indent on
 syntax enable
 set number
 set showcmd
-set cursorline
+"set cursorline
 set wildmenu
 
 "Search
@@ -119,3 +120,8 @@ autocmd Filetype html setlocal ts=2 sts=2 sw=2
 "Table mode
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
+
+" R
+inoremap <Nul> <C-x><C-o>
+vmap <Space> <Plug>RDSendSelection
+nmap <Space> <Plug>RDSendLine
