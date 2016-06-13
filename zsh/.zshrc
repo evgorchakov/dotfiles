@@ -50,7 +50,6 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 alias pacman='sudo pacman'
 alias gcc='gcc -fdiagnostics-color=auto'
-alias f='ranger'
 alias du='ncdu'
 alias ht="htop -u $(whoami)"
 
@@ -59,3 +58,11 @@ alias today='gcalcli agenda 12am 11:59pm --nostarted'
 alias week='gcalcli --calendar="evgorchakov@gmail.com" calw'
 alias gcal='gcalcli --calendar="evgorchakov@gmail.com"'
 
+f(){
+    if [ -z "$RANGER_LEVEL" ] 
+    then
+        ranger
+    else
+        exit
+    fi
+}
