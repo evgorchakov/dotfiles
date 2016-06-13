@@ -1,18 +1,19 @@
 #define base00 #000000
-#define base01 #202020
-#define base02 #303030
-#define base03 #505050
-#define base04 #B0B0B0
-#define base05 #D0D0D0
-#define base06 #E0E0E0
-#define base07 #FFFFFF
-#define base08 #FF0086
-#define base09 #F29393
-#define base0A #F8CA12
-#define base0B #37B349
-#define base0C #00AABB
-#define base0D #0E5A94
-#define base0F #7A2D00
+#define base01 #040404
+#define base02 #102015
+#define base03 #343434
+#define base04 #555555
+#define base05 #ababab
+#define base06 #e0e0e0
+#define base07 #f9f9f9
+#define base08 #e92f2f
+#define base09 #e09448
+#define base0A #dddd13
+#define base0B #0ed839
+#define base0C #23edda
+#define base0D #3b48e3
+#define base0E #f996e2
+#define base0F #69542d
 
 *.foreground:   base05
 *.background:   base00
@@ -175,3 +176,12 @@ URxvt*letterSpace:                    -1
 ! URxvt*tabbar-bg:                      colour
 ! URxvt*tabbar-fg:                      colour
 ! URxvt*url-launcher:                   string
+!
+
+! State:            'bg'        'fg'        'bgalt'     'hlbg'      'hlfg'
+rofi.color-normal:  #050505,    #999999,    #050505,    #050505,    #00c918
+rofi.color-active:  #101010,    #999999,    #050505,    #050505,    #00c918
+
+!                   'background',   'border'
+rofi.color-window: #050505, #050505
+!
