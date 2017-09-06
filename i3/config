@@ -11,7 +11,9 @@
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font pango: Droid Sans Mono 11
+#font pango: Droid Sans Mono 11
+#font pango: Meslo LG L for Powerline 11
+font pango: Input Mono 9
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -22,17 +24,21 @@ font pango: Droid Sans Mono 11
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec urxvt
+bindsym Mod1+Return exec urxvtc
 
 # kill focused window
-bindsym Mod1+x kill
+bindsym Mod1+q kill
 
+smart_borders on
 # bindsym Mod1+p exec dmenu_run -fn "Ubuntu Mono-40" -nb "#151515" -nf "#d0d0d0" -sb "#151515" -sf "#00c918" -y -50 -h 950
 #
 
-bindsym Mod1+Tab exec rofi -show window -font "Droid Sans Mono 30" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 10 -bw 0 -hide-scrollbar -auto-select
+bindsym Mod1+n workspace next
+bindsym Mod1+Tab exec rofi -show window -font "Input Mono 12" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 7 -bw 0 -hide-scrollbar -auto-select
 
-bindsym Mod1+space exec rofi -show run -font "Droid Sans Mono 30" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 10 -bw 0 -hide-scrollbar 
+bindsym Mod1+p exec rofi-pass
+
+bindsym Mod1+space exec rofi -show run -font "Input Mono 12" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 7 -bw 0 -hide-scrollbar 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -119,6 +125,7 @@ bindsym Mod1+Shift+8 move container to workspace 8
 bindsym Mod1+Shift+9 move container to workspace 9
 bindsym Mod1+Shift+0 move container to workspace 10
 
+
 # reload the configuration file
 bindsym Mod1+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -128,6 +135,9 @@ bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # locking
 bindsym Mod1+Ctrl+l exec "slock" 
+
+#browser
+bindsym Mod1+o exec --no-startup-id "chromium" 
 
 # caps lock
 bindsym Caps_Lock mode "CAPS"
@@ -141,7 +151,9 @@ mode "CAPS" {
 }
 
 
-for_window [class="VidyoDesktop"] floating enable
+for_window [window_role="GtkFileChooserDialog"] floating enable
+for_window [title="pinentry"] floating enable
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
@@ -178,18 +190,19 @@ workspace_auto_back_and_forth yes
 bar {
     position top
     status_command i3status --config ~/.config/i3/i3status.conf
-    font pango: Droid Sans Mono, Icons 11
+    font pango: Input Mono 9
     colors {
-        separator #000000
+        separator #ffffff
         background #000000
-        statusline #d0d0d0
-        #                   border  bg      text
+        statusline #ffffff
+                           #border  bg      text
         focused_workspace   #202020 #202020 #0ed839 
         active_workspace    #202020 #202020 #0ed839 
         inactive_workspace  #000000 #000000 #606060
         urgent_workspace    #2f343a #900000 #ffffff
     }
 }
+
 #                       border  bg      text    ind                                       
 client.focused          #0ed839 #0ed839 #151515 #a6e22e
 client.focused_inactive #000000 #000000 #888888 #292d2e
