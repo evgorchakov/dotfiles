@@ -1,24 +1,30 @@
 #define base00 #000000
-#define base01 #040404
-#define base02 #102015
-#define base03 #343434
-#define base04 #555555
-#define base05 #ababab
-#define base06 #e0e0e0
-#define base07 #f9f9f9
-#define base08 #e92f2f
-#define base09 #e09448
-#define base0A #dddd13
-#define base0B #0ed839
-#define base0C #23edda
-#define base0D #3b48e3
-#define base0E #f996e2
-#define base0F #69542d
+#define base01 #303030
+#define base02 #505050
+#define base03 #b0b0b0
+#define base04 #d0d0d0
+#define base05 #e0e0e0
+#define base06 #f5f5f5
+#define base07 #ffffff
+#define base08 #fb0120
+#define base09 #fc6d24
+#define base0A #fda331
+#define base0B #a1c659
+#define base0C #76c7b7
+#define base0D #6fb3d2
+#define base0E #d381c3
+#define base0F #be643c
+
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
 
 *.foreground:   base05
 *.background:   base00
-*.cursorColor:  base05
-
+*.cursorColor2: #ffffff
 *.color0:       base00
 *.color1:       base08
 *.color2:       base0B
@@ -27,7 +33,6 @@
 *.color5:       base0E
 *.color6:       base0C
 *.color7:       base05
-
 *.color8:       base03
 *.color9:       base08
 *.color10:      base0B
@@ -36,15 +41,12 @@
 *.color13:      base0E
 *.color14:      base0C
 *.color15:      base07
-
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
- *.color16:      base09
- *.color17:      base0F
- *.color18:      base01
- *.color19:      base02
- *.color20:      base04
- *.color21:      base06
+*.color16:      base09
+*.color17:      base0F
+*.color18:      base01
+*.color19:      base02
+*.color20:      base04
+*.color21:      base06
 
 ! URxvt*termName:                       string
 ! URxvt*geometry:                       geometry
@@ -78,11 +80,11 @@
 ! URxvt*mouseWheelScrollPage:           boolean
 ! URxvt*tripleclickwords:               boolean
 ! URxvt*insecure:                       boolean
-! URxvt*cursorUnderline:                boolean
+ URxvt*cursorUnderline:                false
 ! URxvt*cursorBlink:                    boolean
 ! URxvt*pointerBlank:                   boolean
-! URxvt*background:                     color
-! URxvt*foreground:                     color
+!URxvt*background:                     base00
+!URxvt*foreground:                     base05
 ! URxvt*color0:                         color
 ! URxvt*color1:                         color
 ! URxvt*color2:                         color
@@ -103,20 +105,21 @@
 ! URxvt*colorIT:                        color
 ! URxvt*colorUL:                        color
 ! URxvt*colorRV:                        color
-! URxvt*underlineColor:                 false
+! URxvt*underlineColor:                 true
 ! URxvt*scrollColor:                    color
 ! URxvt*troughColor:                    color
 ! URxvt*highlightColor:                 color
 ! URxvt*highlightTextColor:             color
-! URxvt*cursorColor:                    color
-! URxvt*cursorColor2:                   color
+!URxvt*cursorColor2:                   black
+!URxvt*cursorColor1:                   green
 ! URxvt*pointerColor:                   color
 ! URxvt*pointerColor2:                  color
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
 ! URxvt*italicFont:                     fontname
-  URxvt*font:                           xft:Droid Sans Mono for Powerline:size=12
-  URxvt*boldFont:                       xft:Droid Sans Mono for Powerline:size=12
+URxvt*font:                             xft:Input Mono Light:size=10
+URxvt*boldFont:                         xft:Input Mono Light:size=10
+!URxvt*boldFont:                         xft:Droid Sans Mono for Powerline:size=10
 ! URxvt*boldItalicFont:                 fontname
 ! URxvt*intensityStyles:                boolean
 ! URxvt*inputMethod:                    name
@@ -135,7 +138,7 @@
 ! URxvt*externalBorder:                 20
 ! URxvt*internalBorder:                 -20
 ! URxvt*borderLess:                     true
-! URxvt*lineSpace:                      number
+URxvt*lineSpace:                      1
 URxvt*letterSpace:                    -1
 ! URxvt*skipBuiltinGlyphs:              boolean
 ! URxvt*pointerBlankDelay:              number
@@ -177,11 +180,12 @@ URxvt*letterSpace:                    -1
 ! URxvt*tabbar-fg:                      colour
 ! URxvt*url-launcher:                   string
 !
+xterm*faceName: Roboto Mono:size=10
 
 ! State:            'bg'        'fg'        'bgalt'     'hlbg'      'hlfg'
-rofi.color-normal:  #050505,    #999999,    #050505,    #050505,    #00c918
-rofi.color-active:  #101010,    #999999,    #050505,    #050505,    #00c918
+rofi.color-normal:  #000000,    #ababab,    #000000,    #050505,    #0ed839
+rofi.color-active:  #000000,    #ababab,    #000000,    #050505,    #0ed839
 
 !                   'background',   'border'
-rofi.color-window: #050505, #050505
+rofi.color-window: #000000, #000000
 !
