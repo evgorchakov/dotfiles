@@ -28,17 +28,16 @@ zstyle ':prezto:load' pmodule \
   'editor' \
   'history' \
   'directory' \
-  'spectrum' \
   'utility' \
   'completion' \
   'syntax-highlighting' \
   'history-substring-search' \
   'git' \
-  'prompt' \
+  'prompt'
 
-# zstyle ':prezto:module:history-substring-search' color 'yes'
-# zstyle ':prezto:module:history-substring-search:' found ''
-# zstyle ':prezto:module:history-substring-search:black' not-found ''
+#zstyle ':prezto:module:history-substring-search' color 'no'
+# zstyle ':prezto:module:history-substring-search:green' found ''
+#zstyle ':prezto:module:history-substring-search:black' not-found ''
 # Editor
 #
 
@@ -67,7 +66,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 #
 
 # Set the query found color.
-# zstyle ':prezto:module:history-substring-search:color' found ''
+ #zstyle ':prezto:module:history-substring-search:color' found ''
 
 # Set the query not found color.
 # zstyle ':prezto:module:history-substring-search:color' not-found ''
@@ -89,7 +88,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'sorin'
+zstyle ':prezto:module:prompt' theme 'paradox'
 
 #
 # Ruby
@@ -121,7 +120,7 @@ zstyle ':prezto:module:prompt' theme 'sorin'
 
 # Set syntax highlighters.
 # By default, only the main highlighter is enabled.
-zstyle ':prezto:module:syntax-highlighting' highlighters \
+#zstyle ':prezto:module:syntax-highlighting' highlighters \
 #   'main' \
 #   'brackets' \
 #   'pattern' \
@@ -133,19 +132,19 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 #   'builtin' 'bg=blue' \
 #   'command' 'bg=blue' \
 #   'function' 'bg=blue'
-
+#
 #
 # Terminal
 #
 
 # Auto set the tab and window titles.
-# zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Set the window title format.
-# zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
+zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
 
 # Set the tab title format.
-# zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
+zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
 #
 # Tmux

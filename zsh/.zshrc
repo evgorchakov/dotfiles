@@ -1,62 +1,43 @@
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+BASE16_SHELL="$HOME/.config/base16-shell/base16-bright.dark.sh"
+source $BASE16_SHELL
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-shapeshifter.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-#
-export GOPATH=/home/evg/code/go
-export ANDROID_HOME=/opt/android-sdk
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$GOPATH/bin:/home/evg/.gem/ruby/2.2.0/bin:/usr/bin/core_perl"
-export EDITOR="vim"
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+source "$HOME/.zprezto/init.zsh"
+
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 setopt AUTO_CD
- 
-# Now we can pipe to multiple outputs!
 setopt MULTIOS
 setopt GLOB_COMPLETE
 setopt ZLE
 setopt NO_CASE_GLOB
- 
-# Be Reasonable!
-setopt NUMERIC_GLOB_SORT
- 
-# I don't know why I never set this before.
 setopt EXTENDED_GLOB
- 
-# hows about arrays be awesome?  (that is, frew${cool}frew has frew surrounding all the variables, not just first and last
+setopt NUMERIC_GLOB_SORT
 setopt RC_EXPAND_PARAM
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# bind P and N for EMACS mode
-
-# bind k and j for VI mode
+export KEYTIMEOUT=1
+bindkey -v
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+bindkey 'J' history-substring-search-down
+bindkey 'K' history-substring-search-up
+bindkey 'L' autosuggest-accept
 
-source /usr/share/doc/pkgfile/command-not-found.zsh
+# bind k and j for VI mode
 
 alias pacman='sudo pacman'
-alias gcc='gcc -fdiagnostics-color=auto'
-alias du='ncdu'
-alias ht="htop -u $(whoami)"
-
-alias agenda='gcalcli --calendar="evgorchakov@gmail.com" agenda --nostarted'
-alias today='gcalcli agenda 12am 11:59pm --nostarted'
-alias week='gcalcli --calendar="evgorchakov@gmail.com" calw'
+alias agenda='gcalcli --calendar="evgorchakov@gmail.com" --calendar="4B" agenda'
+alias today='gcalcli --calendar="evgorchakov@gmail.com" --calendar="4B" agenda 12am 11:59pm'
+alias week='gcalcli --calendar="evgorchakov@gmail.com" --calendar="4B" calw'
 alias gcal='gcalcli --calendar="evgorchakov@gmail.com"'
+#alias hn='vim -c "HackerNews" -c "Goyo 100"'
+alias ipy='ipython'
+
+export GOPATH=/home/evg/code/go
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$GOPATH/bin:/home/evg/.gem/ruby/2.3.0/bin:/usr/bin/core_perl"
+export WORKON_HOME=~/.virtualenvs
+export IPYTHONDIR=~/.config/ipython
 
 f(){
     if [ -z "$RANGER_LEVEL" ] 
