@@ -2,6 +2,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'chriskempson/base16-vim'
 Plug 'elzr/vim-json'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries'}
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim' 
@@ -24,6 +25,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
 Plug 'w0rp/ale'
 Plug 'zchee/deoplete-clang'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
 
 call plug#end()
@@ -43,10 +45,13 @@ set smartindent
 set hidden
 set cursorline
 set lazyredraw
+set autowrite
+set completeopt-=preview
 
 set tags=./tags;
 
 let delimitmate_expand_cr=1
+let delimitmate_expand_space=1
 let mapleader="\<Space>"
 
 noremap : ;
@@ -63,9 +68,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>tt :Tags<CR>
 nnoremap <leader>/ :Blines<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap gb :Buffers<CR>
+noremap gt g]
 nnoremap <leader>l :Lexplore<CR>
-nnoremap <leader>g :Rg
+nnoremap <leader>g :Rg 
 nnoremap <leader>tb :TagbarToggle<CR>
 nnoremap <leader>af :ALEFix<CR>
 nnoremap tn :tabnext<CR>
@@ -96,6 +102,7 @@ hi SpellCap ctermfg=NONE
 hi MatchParen ctermbg=235 ctermfg=250
 hi CursorLine ctermbg=NONE
 hi CursorLineNR ctermbg=NONE ctermfg=245
+hi cppOperator ctermfg=4 
 
 let g:netrw_liststyle=3
 let g:netrw_winsize=25
@@ -113,7 +120,7 @@ end
 let g:airline_symbols.linenr=''
 let g:airline_symbols.maxlinenr=''
 let g:airline_powerline_fonts=0
-let g:airline_theme='term'
+let g:airline_theme='minimalist'
 let g:airline#extensions#default#layout = [
   \ [ 'a', 'b', 'c' ],
   \ [ 'x', 'z']
@@ -167,7 +174,22 @@ let g:ale_fixers = {
 \}
 let g:ale_c_clangformat_options = '--style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
 
-imap <expr> <CR> pumvisible() ? neocomplcache#smart_close_popup() : '<Plug>delimitMateCR'
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 let g:polyglot_disabled = ['latex']
+
+"go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>i  <Plug>(go-imports)
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:deoplete#sources#go#gocode_binary = '$GOPATH/bin/gocode'
+
+
+
+inoremap <silent><expr><CR> pumvisible() ?
+	\ (neosnippet#expandable() ? neosnippet#mappings#expand_impl() : deoplete#close_popup())
+		\ : (delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : "\<CR>")
