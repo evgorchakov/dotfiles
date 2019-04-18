@@ -1,6 +1,11 @@
+
+
+#
+# User configuration sourced by interactive shells
+#
+
 # Change default zim location
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-
 # Start zim
 [[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh 
 
@@ -27,7 +32,7 @@ bindkey '^L' autosuggest-accept
 bindkey '^ ' clear-screen
 
 alias pacman='sudo pacman'
-alias ipy='ipython'
+alias ipy='ipython3'
 alias vim='nvim'
 
 export WORKON_HOME=~/.virtualenvs
@@ -45,3 +50,7 @@ f(){
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40% --reverse --black'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export SOURCEKIT_TOOLCHAIN_PATH='/Library/Developer/Toolchains/swift-latest.xctoolchain'
+export PATH=~/.local/bin:$PATH
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
