@@ -1,24 +1,28 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neoinclude.vim' 
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next',  'do': 'bash install.sh' }
+Plug 'andrewradev/sideways.vim'
+Plug 'bazelbuild/vim-bazel'
+Plug 'bfrg/vim-cpp-modern'
+Plug 'brooth/far.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'dkprice/vim-easygrep'
+Plug 'dense-analysis/ale'
 Plug 'elzr/vim-json'
 Plug 'gfontenot/vim-xcode'
+Plug 'google/vim-maktaba'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
-Plug 'junegunn/fzf.vim' 
-Plug 'junegunn/vim-easy-align' 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'keith/swift.vim'
-Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'pearofducks/ansible-vim'
 Plug 'raimondi/delimitmate'
 Plug 'rbgrouleff/bclose.vim'
@@ -28,33 +32,40 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
-call plug#end() 
+call plug#end()
+
+set autoindent
+set autowrite
+set backspace=indent,eol,start
+set cmdheight=2
+set completeopt-=preview
+set cursorline
+set expandtab
+set foldlevel=1
+set foldmethod=syntax
+set foldnestmax=1
+set hidden
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set lazyredraw
+set mouse=a
 set shiftwidth=4
+set shortmess+=c
+set signcolumn=yes
+set smartcase
+set smartindent
 set softtabstop=4
 set tabstop=4
-set expandtab
-set number
-set incsearch
-set smartcase
-set ignorecase
-set hlsearch
-set mouse=a
-set laststatus=2
 set ttimeoutlen=50
-set autoindent
-set smartindent
-set hidden
-set cursorline
-set lazyredraw
-set autowrite
-set completeopt-=preview
-set foldmethod=indent
-set foldlevel=1
-set foldnestmax=1
+set updatetime=300
 
 set tags=./tags;
 
@@ -78,19 +89,17 @@ nnoremap <leader>tt :Tags<CR>
 nnoremap <leader>/ :Blines<CR>
 nnoremap gb :Buffers<CR>
 noremap gt g]
-"nnoremap <leader>l :Lexplore<CR>
 nnoremap <leader>l :NERDTreeToggle<CR>
 nnoremap <leader>g :Rg 
-nnoremap <leader>tb :TagbarToggle<CR>
-nnoremap <leader>af :ALEFix<CR>
-nnoremap <leader>al :ALELint<CR>
+nnoremap <leader>tb :Vista!!<CR>
 nnoremap tn :tabnext<CR>
 nnoremap tp :tabprev<CR>
 nnoremap  <silent> <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 vnoremap <C-C> "+y
+nnoremap <leader>H :SidewaysLeft<cr>
+nnoremap <leader>L :SidewaysRight<cr>
 
-imap ` <Esc>
 "Terminal
 au TermOpen * tnoremap <Esc> <c-\><c-n>
 au FileType fzf tunmap <Esc>
@@ -98,22 +107,6 @@ au FileType fzf tunmap <Esc>
 "To simulate |i_CTRL-R| in terminal-mode:
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
-"To use `ALT+{h,j,k,l}` to navigate windows from any mode:
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>lnoremap ` <C-\><C-n>
-
-set backspace=indent,eol,start
-imap <Bs> <Esc>
 
 set background=dark
 if filereadable(expand("~/.vimrc_background"))
@@ -136,17 +129,9 @@ hi SpellCap ctermfg=NONE
 hi MatchParen ctermbg=235 ctermfg=250
 hi CursorLine ctermbg=NONE
 hi CursorLineNR ctermbg=NONE ctermfg=245
-hi cppOperator ctermfg=4 
+hi cppOperator ctermfg=4
 hi Error ctermbg=NONE ctermfg=darkred
 hi SpellCap ctermbg=darkgrey
-
-let g:netrw_liststyle=3
-let g:netrw_winsize=25
-let g:netrw_banner=0
-let g:netrw_sort_sequence = '[\/]$,*'
-let g:netrw_browse_split=4
-let g:netrw_list_hide='.git/,.*\.swp$,'
-let g:netrw_hide=1
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#fnamemod=':t'
@@ -161,6 +146,8 @@ let g:airline#extensions#default#layout = [
   \ [ 'a', 'b', 'c' ],
   \ [ 'x', 'z']
   \ ]
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 
 set rtp+=~/.fzf
@@ -192,33 +179,10 @@ hi SignifySignAdd    ctermbg=black  ctermfg=119
 hi SignifySignDelete ctermbg=black  ctermfg=167
 hi SignifySignChange ctermbg=black  ctermfg=227
 
-let g:deoplete#enable_at_startup=1
-let g:deoplete#auto_complete_delay = 0
-let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-let g:deoplete#sources#clang#flags = ['-darwin=10.13' ]
-
-let g:ale_cpp_clang_options='-std=c++17 -Wall'
-
-let g:ale_linters = {
-\    'python': ['pyls'],
-\    'cpp': ['clang', 'cppclean', 'cppcheck' ],
-\}
-
-let g:ale_fixers = {
-\    'python': ['black'],
-\    'cpp': ['clang-format'],
-\    'objc': ['clang-format'],
-\    'objcpp': ['clang-format'],
-\    'swift': ['swiftformat'],
-\}
-let g:ale_c_clangformat_options = '--style="{BasedOnStyle: LLVM, IndentWidth: 4}"'
-let g:ale_python_black_options = '--fast'
-let g:ale_python_pyls_auto_pipenv = 1
-
 let g:polyglot_disabled = ['latex']
 
 "go
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>i  <Plug>(go-imports)
@@ -228,48 +192,79 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 
-autocmd FileType python nnoremap <leader>ds :Pydocstring<CR>  
-
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>af  <Plug>(coc-format)
+nmap <leader>af  <Plug>(coc-format)
 
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-nnoremap <silent><Leader>c :RangerOpenCurrentDir<CR>
-nnoremap <silent><Leader>f :RangerOpenProjectRootDir<CR>
-
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1 
-
-au FileType objcpp noremap <leader>b :Xbuild<CR>
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-\ 'swift':  ['~/.local/bin/sourcekit-lsp'],
-\ 'cpp':    ['~/.local/bin/ccls', '-v=2', '--log-file=/tmp/cc.log'],
-\ 'objc':   ['~/.local/bin/ccls', '-v=2', '--log-file=/tmp/cc.log'],
-\ 'objcpp': ['~/.local/bin/ccls', '-v=2', '--log-file=/tmp/cc.log'],
-\ 'python': ['/usr/local/bin/pyls'],
-\ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 nnoremap <leader>rc :vsp $MYVIMRC<CR>
+
+augroup TerminalStuff
+   au!
+  autocmd TermOpen * setlocal nonumber norelativenumber
+augroup END
+
+let g:ale_linters = {
+\   'cpp': ['clangtidy'],
+\   'objc': ['clangtidy'],
+\   'objcpp': ['clangtidy'],
+\}
+
+nnoremap <leader>al :ALELint<CR>
