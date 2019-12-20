@@ -22,9 +22,18 @@
             }
         }
     },
+    "list.source.grep.command": "rg",
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
-        "--target py38",
-        "--fast"
+        "--safe"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.linting.lintOnSave": true,
+    "python.jediEnabled": false,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "python"
     ]
 }

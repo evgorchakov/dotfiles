@@ -4,20 +4,22 @@ Plug 'andrewradev/sideways.vim'
 Plug 'bazelbuild/vim-bazel'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'brooth/far.vim'
+Plug 'chrisbra/csv.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
 Plug 'elzr/vim-json'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'gfontenot/vim-xcode'
 Plug 'google/vim-maktaba'
 Plug 'jiangmiao/auto-pairs'
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'keith/swift.vim'
 Plug 'liuchengxu/vista.vim'
+Plug 'machakann/vim-sandwich'
 Plug 'mbbill/undotree'
+Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
@@ -86,11 +88,13 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>tt :Tags<CR>
-nnoremap <leader>/ :Blines<CR>
+nnoremap <leader>bt :BTags<CR>
+nnoremap <leader>/ :BLines<CR>
 nnoremap gb :Buffers<CR>
 noremap gt g]
 nnoremap <leader>l :NERDTreeToggle<CR>
-nnoremap <leader>g :Rg 
+nnoremap <leader>cs :CocSearch<Space>
+nnoremap <leader>cc :CocCommand<CR>
 nnoremap <leader>tb :Vista!!<CR>
 nnoremap tn :tabnext<CR>
 nnoremap tp :tabprev<CR>
@@ -100,15 +104,13 @@ vnoremap <C-C> "+y
 nnoremap <leader>H :SidewaysLeft<cr>
 nnoremap <leader>L :SidewaysRight<cr>
 
-"Terminal
-au TermOpen * tnoremap <Esc> <c-\><c-n>
-au FileType fzf tunmap <Esc>
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 
 "To simulate |i_CTRL-R| in terminal-mode:
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 
-set background=dark
+"set background=dark
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
@@ -117,7 +119,7 @@ endif
 hi LineNr ctermbg=black ctermfg=235
 hi Search term=reverse ctermbg=234 ctermfg=green
 hi IncSearch term=reverse ctermbg=238 ctermfg=green
-hi VertSplit ctermbg=black ctermfg=235
+hi VertSplit ctermbg=235 ctermfg=black
 hi Pmenu ctermbg=233 ctermfg=white
 hi PmenuSel ctermbg=233 ctermfg=green
 hi SignColumn ctermbg=black
@@ -134,6 +136,7 @@ hi Error ctermbg=NONE ctermfg=darkred
 hi SpellCap ctermbg=darkgrey
 
 let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#vista#enabled=1
 let g:airline#extensions#fnamemod=':t'
 if !exists('g:airline_symbols')
     let g:airline_symbols={}
@@ -141,7 +144,7 @@ end
 let g:airline_symbols.linenr=''
 let g:airline_symbols.maxlinenr=''
 let g:airline_powerline_fonts=0
-let g:airline_theme='serene'
+let g:airline_theme='term'
 let g:airline#extensions#default#layout = [
   \ [ 'a', 'b', 'c' ],
   \ [ 'x', 'z']
@@ -243,10 +246,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-xmap <leader>af  <Plug>(coc-format)
-nmap <leader>af  <Plug>(coc-format)
-
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
@@ -262,9 +261,21 @@ augroup TerminalStuff
 augroup END
 
 let g:ale_linters = {
-\   'cpp': ['clangtidy'],
-\   'objc': ['clangtidy'],
-\   'objcpp': ['clangtidy'],
+\   '*' : ['remove_traiilng_lines', 'trim_whitespace'],
 \}
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
 
 nnoremap <leader>al :ALELint<CR>
+
+" Grepper
+nnoremap <leader>g :Grepper -tool rg -highlight<CR>
+
+runtime plugin/grepper.vim
+let g:grepper.prompt_text = '$t> '
+
+" Ranger
+let g:NERDTreeHijackNetrw = 0
+let g:ranger_replace_netrw = 1
+nnoremap <leader>f :Ranger<CR>
