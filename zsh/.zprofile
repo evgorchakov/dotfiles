@@ -6,10 +6,4 @@ path=(
   $path
   )
 
-# Set GPG TTY
-export GPG_TTY=$(tty)
-
-# Refresh gpg-agent tty in case user switches into an X session
-gpg-connect-agent updatestartuptty /bye >/dev/null
-
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

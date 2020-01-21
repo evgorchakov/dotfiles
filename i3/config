@@ -24,7 +24,8 @@ font pango: Input Mono 9
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec urxvtc
+#bindsym Mod1+Return exec urxvtc
+bindsym Mod1+Return exec alacritty
 
 # kill focused window
 bindsym Mod1+q kill
@@ -35,7 +36,6 @@ smart_borders on
 
 bindsym Mod1+n workspace next
 bindsym Mod1+Tab exec rofi -show window -font "Input Mono 12" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 7 -bw 0 -hide-scrollbar -auto-select
-
 bindsym Mod1+p exec rofi-pass
 
 bindsym Mod1+space exec rofi -show run -font "Input Mono 12" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 7 -bw 0 -hide-scrollbar 
