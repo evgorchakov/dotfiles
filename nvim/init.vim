@@ -3,34 +3,35 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'andrewradev/sideways.vim'
 Plug 'bazelbuild/vim-bazel'
 Plug 'bfrg/vim-cpp-modern'
-Plug 'brooth/far.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'dense-analysis/ale'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'gfontenot/vim-xcode'
 Plug 'google/vim-maktaba'
+Plug 'iberianpig/tig-explorer.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'keith/swift.vim'
+Plug 'lervag/vimtex'
 Plug 'liuchengxu/vista.vim'
+Plug 'gcmt/taboo.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'mbbill/undotree'
-Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+"Plug 'neovim/nvim-lsp'
 Plug 'pearofducks/ansible-vim'
 Plug 'raimondi/delimitmate'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-sensible'
@@ -47,7 +48,7 @@ set autowrite
 set backspace=indent,eol,start
 set cmdheight=2
 set completeopt-=preview
-set cursorline
+set nocursorline
 set expandtab
 set foldlevel=1
 set foldmethod=syntax
@@ -89,12 +90,13 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>tt :Tags<CR>
 nnoremap <leader>bt :BTags<CR>
-nnoremap <leader>/ :BLines<CR>
 nnoremap gb :Buffers<CR>
 noremap gt g]
 nnoremap <leader>l :NERDTreeToggle<CR>
-nnoremap <leader>cs :CocSearch<Space>
-nnoremap <leader>cc :CocCommand<CR>
+nnoremap <leader>f :Ranger<CR>
+nnoremap <leader>c/ :CocSearch<Space>
+nnoremap <leader>cm :CocCommand<CR>
+nnoremap <silent> <leader>a :CocList actions<CR>
 nnoremap <leader>tb :Vista!!<CR>
 nnoremap tn :tabnext<CR>
 nnoremap tp :tabprev<CR>
@@ -138,23 +140,27 @@ hi SpellCap ctermbg=darkgrey
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#vista#enabled=1
 let g:airline#extensions#fnamemod=':t'
+let g:airline_powerline_fonts = 0
+
 if !exists('g:airline_symbols')
-    let g:airline_symbols={}
-end
-let g:airline_symbols.linenr=''
-let g:airline_symbols.maxlinenr=''
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_symbols.linenr = ''
 let g:airline_powerline_fonts=0
 let g:airline_theme='term'
 let g:airline#extensions#default#layout = [
-  \ [ 'a', 'b', 'c' ],
-  \ [ 'x', 'z']
+  \ [ 'a', 'b' ],
+  \ [ 'x', 'y', 'z']
   \ ]
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+"let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+"let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
-
+"fzf
 set rtp+=~/.fzf
 let g:fzf_buffers_jump=1
+let g:fzf_preview_window = 'right:60%'
 
 let g:latex_view_general_viewer = 'zathura'
 let g:vimtex_view_method = 'zathura'
@@ -242,6 +248,7 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -261,21 +268,21 @@ augroup TerminalStuff
 augroup END
 
 let g:ale_linters = {
-\   '*' : ['remove_traiilng_lines', 'trim_whitespace'],
+\   '*' : ['remove_trailing_lines', 'trim_whitespace'],
 \}
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
+let g:ale_lint_on_save = 0
 
 nnoremap <leader>al :ALELint<CR>
 
-" Grepper
-nnoremap <leader>g :Grepper -tool rg -highlight<CR>
-
-runtime plugin/grepper.vim
-let g:grepper.prompt_text = '$t> '
+" Grep
+nnoremap <leader>g :Rg  
+nnoremap <leader>/ :Rg <C-R><C-W><CR>
 
 " Ranger
 let g:NERDTreeHijackNetrw = 0
 let g:ranger_replace_netrw = 1
-nnoremap <leader>f :Ranger<CR>
+
+" tig
+nnoremap <silent> <leader>tg :TigOpenProjectRootDir<CR>

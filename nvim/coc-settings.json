@@ -5,35 +5,41 @@
             "filetypes": [
                 "c",
                 "cpp",
+                "cuda",
                 "objc",
                 "objcpp"
             ],
             "rootPatterns": [
                 ".ccls",
-                "compile_commands.json",
-                ".vim/",
-                ".git/",
-                ".hg/"
+                "compile_commands.json"
             ],
             "initializationOptions": {
                 "cache": {
-                    "directory": "/tmp/ccls"
+                    "directory": "/tmp/ccls-cache"
+                },
+                "clang": {
+                    "extraArgs": ["-std=c++17", "-Wall"]
+                },
+                "index": {
+                    "onChange": true
+                },
+                "completion": {
+                    "detailedLabel": false
                 }
             }
         }
     },
     "list.source.grep.command": "rg",
     "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "--safe"
-    ],
+    "python.formatting.blackArgs": ["--fast"],
     "python.linting.enabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.pylintEnabled": true,
     "python.linting.pylintUseMinimalCheckers": false,
     "python.linting.lintOnSave": true,
     "python.jediEnabled": false,
+    "python.venvPath": "~/Library/Caches/pypoetry/virtualenvs",
     "coc.preferences.formatOnSaveFiletypes": [
-        "python"
-    ]
+        "python", "cpp", "objcpp"
+    ],
 }

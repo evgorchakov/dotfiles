@@ -1,4 +1,4 @@
-export XDG_CONFIG_HOME=/home/evg/.config
+export XDG_CONFIG_HOME=~/.config
 export EDITOR="nvim"
 
 path=(
@@ -6,10 +6,9 @@ path=(
   $path
   )
 
-# Set GPG TTY
-export GPG_TTY=$(tty)
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
-# Refresh gpg-agent tty in case user switches into an X session
-gpg-connect-agent updatestartuptty /bye >/dev/null
+export PATH="$HOME/.cargo/bin:$PATH"
 
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+export PATH="$HOME/.poetry/bin:$PATH"
