@@ -43,6 +43,7 @@
 *color20:      base04
 *color21:      base06
 
+Xft.dpi: 192
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
@@ -186,11 +187,3 @@ URxvt*letterSpace:                    -1
 ! URxvt*url-launcher:                   string
 !
 xterm*faceName: Roboto Mono:size=10
-
-! State:            'bg'        'fg'        'bgalt'     'hlbg'      'hlfg'
-rofi.color-normal:  #000000,    #ababab,    #000000,    #050505,    #0ed839
-rofi.color-active:  #000000,    #ababab,    #000000,    #050505,    #0ed839
-
-!                   'background',   'border'
-rofi.color-window: #000000, #000000
-!

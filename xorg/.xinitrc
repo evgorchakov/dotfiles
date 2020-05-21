@@ -1,13 +1,17 @@
-xrdb -load /home/evg/.Xresources
-xbindkeys &
-xinput set-prop "TPPS/2 IBM TrackPoint" "Device Accel Constant Deceleration" 100
-feh --randomize --bg-scale /home/evg/downloads/wallpapers* 
+xrdb -load /home/e/.Xresources
+xbindkeys
+
+xinput set-prop "Elan TrackPoint" "libinput Accel Speed" 1.0
+xinput set-prop "Elan TouchPad" "libinput Accel Speed" 0.75
+
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
-xset r rate 180 250
-urxvtd -q -o -f&
-twmnd &
+xset r rate 175 100
+xset s on
+xset s 180
+xss-lock -- i3lock -c 00000 &
+
 unclutter &
-dbus-update-activation-environment --systemd DISPLAY
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+xbanish &
+
 export SSH_AUTH_SOCK
-exec i3 
+exec i3

@@ -11,38 +11,27 @@
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-#font pango: Droid Sans Mono 11
-#font pango: Meslo LG L for Powerline 11
-font pango: Input Mono 9
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, if you need a lot of unicode glyphs or
-# right-to-left text rendering, you should instead use pango for rendering and
-# chose a FreeType font, such as:
-# font pango:DejaVu Sans Mono 10
+font pango: Iosevka Nerd Font Mono 10 
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier Mod1
 
 # start a terminal
-#bindsym Mod1+Return exec urxvtc
 bindsym Mod1+Return exec alacritty
 
 # kill focused window
 bindsym Mod1+q kill
 
 smart_borders on
-# bindsym Mod1+p exec dmenu_run -fn "Ubuntu Mono-40" -nb "#151515" -nf "#d0d0d0" -sb "#151515" -sf "#00c918" -y -50 -h 950
-#
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
 
-bindsym Mod1+n workspace next
-bindsym Mod1+Tab exec rofi -show window -font "Input Mono 12" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 7 -bw 0 -hide-scrollbar -auto-select
-bindsym Mod1+p exec rofi-pass
-
-bindsym Mod1+space exec rofi -show run -font "Input Mono 12" -fullscreen -location 0 -columns 1 -padding 250 -line-margin 7 -bw 0 -hide-scrollbar 
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+#rofi
+#bindsym Mod1+Tab exec rofi -show window
+bindsym Mod1+space exec rofi -show run
+bindsym Mod1+p exec gopass-rofi
+bindsym Mod1+c exec rofi -show calc
+bindsym Mod1+t exec --no-startup-id rofi-bluetooth
 
 # change focus
 bindsym Mod1+h focus left
@@ -51,10 +40,10 @@ bindsym Mod1+k focus up
 bindsym Mod1+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
+#bindsym Mod1+Left focus left
+#bindsym Mod1+Down focus down
+#bindsym Mod1+Up focus up
+#bindsym Mod1+Right focus right
 
 # move focused window
 bindsym Mod1+Shift+h move left
@@ -63,10 +52,10 @@ bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+#bindsym Mod1+Shift+Left move left
+#bindsym Mod1+Shift+Down move down
+#bindsym Mod1+Shift+Up move up
+#bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
 bindsym Mod1+b split h
@@ -142,18 +131,6 @@ bindsym Mod1+o exec --no-startup-id "chromium"
 #screenshot
 bindsym Mod1+Shift+s exec maim -s | xclip -selection clipboard -t image/png
 
-# caps lock
-bindsym Caps_Lock mode "CAPS"
-bindsym Shift+Caps_Lock mode "CAPS"
-bindsym Ctrl+Caps_Lock mode "CAPS"
-mode "CAPS" {
-    bindsym Caps_Lock mode "default"
-    bindsym Shift+Caps_Lock mode "default"
-    bindsym Ctrl+Caps_Lock mode "default"
-    bindsym $mod+Caps_Lock mode "default"
-}
-
-
 for_window [window_role="GtkFileChooserDialog"] floating enable
 for_window [title="pinentry"] floating enable
 
@@ -192,8 +169,9 @@ workspace_auto_back_and_forth yes
 # finds out, if available)
 bar {
     position top
-    status_command i3status 
-    font pango: Input Mono 9
+    #status_command i3status-rs ~/.config/i3/status.toml
+    status_command i3status
+    font pango: Iosevka 9
     colors {
         separator #ffffff
         background #000000

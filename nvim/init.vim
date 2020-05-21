@@ -1,12 +1,13 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'andrewradev/sideways.vim'
+Plug 'alok/notational-fzf-vim'
 Plug 'bazelbuild/vim-bazel'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'brooth/far.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
+Plug 'dkarter/bullets.vim'
 Plug 'elzr/vim-json'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'gfontenot/vim-xcode'
@@ -16,6 +17,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'keith/swift.vim'
+Plug 'lervag/vimtex'
 Plug 'liuchengxu/vista.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'mbbill/undotree'
@@ -28,6 +30,10 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'pearofducks/ansible-vim'
 Plug 'raimondi/delimitmate'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'rbong/vim-crystalline'
+Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-litecorrect'
+Plug 'reedes/vim-pencil'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -35,11 +41,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 set autoindent
@@ -135,24 +139,6 @@ hi cppOperator ctermfg=4
 hi Error ctermbg=NONE ctermfg=darkred
 hi SpellCap ctermbg=darkgrey
 
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#vista#enabled=1
-let g:airline#extensions#fnamemod=':t'
-if !exists('g:airline_symbols')
-    let g:airline_symbols={}
-end
-let g:airline_symbols.linenr=''
-let g:airline_symbols.maxlinenr=''
-let g:airline_powerline_fonts=0
-let g:airline_theme='term'
-let g:airline#extensions#default#layout = [
-  \ [ 'a', 'b', 'c' ],
-  \ [ 'x', 'z']
-  \ ]
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-
-
 set rtp+=~/.fzf
 let g:fzf_buffers_jump=1
 
@@ -168,13 +154,6 @@ au FileType tex noremap <Leader>lv :VimtexView<CR>
 au FileType tex noremap <Leader>wc :VimtexCountWords<CR>
 au FileType tex noremap <Leader>e :VimtexErrors<CR>
 
-func! WritingMode()
-    setlocal formatoptions=1
-    setlocal noexpandtab
-    set complete+=s
-    setlocal wrap
-    setlocal linebreak
-endfu
 
 nnoremap <leader>sf :SignifyFold<CR>
 let g:signify_realtime = 1
@@ -279,3 +258,89 @@ let g:grepper.prompt_text = '$t> '
 let g:NERDTreeHijackNetrw = 0
 let g:ranger_replace_netrw = 1
 nnoremap <leader>f :Ranger<CR>
+
+function! StatusLine(current, width)
+  let l:s = ''
+
+  if a:current
+    let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
+  else
+    let l:s .= '%#CrystallineInactive#'
+  endif
+  let l:s .= ' %f%h%w%m%r '
+  if a:current
+    let l:s .= crystalline#right_sep('', 'Fill') . ' %{fugitive#head()}'
+  endif
+
+  let l:s .= '%='
+  if a:current
+    let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
+    "let l:s .= crystalline#left_mode_sep('')
+  endif
+  if a:width > 80
+    let l:s .= ' %l/%L %cV '
+  else
+    let l:s .= ' '
+  endif
+
+  return l:s
+endfunction
+
+function! TabLine()
+  let l:vimlabel = has('nvim') ?  ' NVIM ' : ' VIM '
+  return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
+endfunction
+
+let g:crystalline_enable_sep = 0
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_tabline_fn = 'TabLine'
+let g:crystalline_theme = 'dracula'
+
+set showtabline=2
+set guioptions-=e
+set laststatus=2
+
+"vimwiki
+let g:vimwiki_list = [{'path':'~/notes'}]
+
+"notational
+
+let g:nv_search_paths = ['~/notes']
+
+func! WritingMode()
+    setlocal formatoptions=1
+    setlocal noexpandtab
+    setlocal nocursorline 
+    set complete="
+    setlocal wrap
+    setlocal linebreak
+
+    call pencil#init({'wrap': 'soft'})
+    call lexical#init()
+    call litecorrect#init()
+
+    " manual reformatting shortcuts
+    nnoremap <buffer> <silent> Q gqap
+    xnoremap <buffer> <silent> Q gq
+    nnoremap <buffer> <silent> <leader>Q vapJgqap
+
+    " force top correction on most recent misspelling
+    nnoremap <buffer> <c-s> [s1z=<c-o>
+    inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
+
+    " replace common punctuation
+    iabbrev <buffer> -- –
+    iabbrev <buffer> --- —
+    iabbrev <buffer> << «
+    iabbrev <buffer> >> »
+
+    " open most folds
+    setlocal foldlevel=6
+    :Goyo 90
+endfunction
+
+command! -nargs=0 WritingMode call WritingMode()
+
+"pandoc
+let g:pandoc#command#autoexec_on_writes = 1
+let g:pandoc#command#autoexec_command = "Pandoc! pdf" 
