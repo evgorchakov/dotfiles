@@ -1,22 +1,17 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'alok/notational-fzf-vim'
-Plug 'bazelbuild/vim-bazel'
 Plug 'bfrg/vim-cpp-modern'
-Plug 'brooth/far.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'dense-analysis/ale'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'dkarter/bullets.vim'
 Plug 'elzr/vim-json'
 Plug 'francoiscabrol/ranger.vim'
-Plug 'gfontenot/vim-xcode'
-Plug 'google/vim-maktaba'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'keith/swift.vim'
 Plug 'lervag/vimtex'
 Plug 'liuchengxu/vista.vim'
 Plug 'machakann/vim-sandwich'
@@ -27,7 +22,6 @@ Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug 'pearofducks/ansible-vim'
 Plug 'raimondi/delimitmate'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rbong/vim-crystalline'
@@ -105,14 +99,11 @@ nnoremap tp :tabprev<CR>
 nnoremap  <silent> <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 vnoremap <C-C> "+y
-nnoremap <leader>H :SidewaysLeft<cr>
-nnoremap <leader>L :SidewaysRight<cr>
 
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 
 "To simulate |i_CTRL-R| in terminal-mode:
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-
 
 "set background=dark
 if filereadable(expand("~/.vimrc_background"))
@@ -162,17 +153,6 @@ hi SignifySignDelete ctermbg=black  ctermfg=167
 hi SignifySignChange ctermbg=black  ctermfg=227
 
 let g:polyglot_disabled = ['latex']
-
-"go
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go nmap <leader>i  <Plug>(go-imports)
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
 
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -230,23 +210,12 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:python3_host_prog = '/usr/local/bin/python3'
-
 nnoremap <leader>rc :vsp $MYVIMRC<CR>
 
 augroup TerminalStuff
    au!
   autocmd TermOpen * setlocal nonumber norelativenumber
 augroup END
-
-let g:ale_linters = {
-\   '*' : ['remove_traiilng_lines', 'trim_whitespace'],
-\}
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-
-nnoremap <leader>al :ALELint<CR>
 
 " Grepper
 nnoremap <leader>g :Grepper -tool rg -highlight<CR>
@@ -304,7 +273,6 @@ set laststatus=2
 let g:vimwiki_list = [{'path':'~/notes'}]
 
 "notational
-
 let g:nv_search_paths = ['~/notes']
 
 func! WritingMode()
