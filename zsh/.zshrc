@@ -29,11 +29,13 @@ zinit light zsh-users/zsh-completions
 zinit ice wait lucid atinit'zpcompinit; zpcdreplay'
 zinit light zdharma/fast-syntax-highlighting
 
+zinit load agkozak/zsh-z
+
 
 ##### END Zinit stuff #####
 #
 BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+[ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 
 HISTFILE=~/.zhistory
@@ -101,9 +103,6 @@ _fzf_compgen_dir() {
 export FZF_DEFAULT_OPTS='--height 30% --reverse --black'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
-
 # Don't bind these keys until ready
 bindkey -v '^K' history-substring-search-up
 bindkey -v '^J' history-substring-search-down
@@ -112,6 +111,5 @@ bindkey "" autosuggest-accept
 
 autoload -Uz compinit
 compinit
-# gopass
-source <(gopass completion zsh | head -n -1 | tail -n +2)
-compdef _gopass gopass
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

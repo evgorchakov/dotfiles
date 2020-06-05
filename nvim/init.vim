@@ -1,6 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'alok/notational-fzf-vim'
+"Plug 'alok/notational-fzf-vim'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'chrisbra/csv.vim'
 Plug 'chriskempson/base16-vim'
@@ -9,6 +9,7 @@ Plug 'dkarter/bullets.vim'
 Plug 'elzr/vim-json'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'dir': '~/opt/fzf' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
@@ -16,11 +17,8 @@ Plug 'lervag/vimtex'
 Plug 'liuchengxu/vista.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'mbbill/undotree'
-Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'raimondi/delimitmate'
 Plug 'rbgrouleff/bclose.vim'
@@ -38,6 +36,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vimwiki/vimwiki'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 call plug#end()
 
 set autoindent
@@ -86,13 +85,13 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>tt :Tags<CR>
-nnoremap <leader>bt :BTags<CR>
+nnoremap <leader>bt :Vista finder<CR>
 nnoremap <leader>/ :BLines<CR>
 nnoremap gb :Buffers<CR>
 noremap gt g]
 nnoremap <leader>l :NERDTreeToggle<CR>
 nnoremap <leader>cs :CocSearch<Space>
-nnoremap <leader>cc :CocCommand<CR>
+nnoremap <leader>cm :CocCommand<CR>
 nnoremap <leader>tb :Vista!!<CR>
 nnoremap tn :tabnext<CR>
 nnoremap tp :tabprev<CR>
@@ -105,7 +104,7 @@ tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 "To simulate |i_CTRL-R| in terminal-mode:
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
-"set background=dark
+set background=dark
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
@@ -130,7 +129,6 @@ hi cppOperator ctermfg=4
 hi Error ctermbg=NONE ctermfg=darkred
 hi SpellCap ctermbg=darkgrey
 
-set rtp+=~/.fzf
 let g:fzf_buffers_jump=1
 
 let g:latex_view_general_viewer = 'zathura'
@@ -146,7 +144,6 @@ au FileType tex noremap <Leader>wc :VimtexCountWords<CR>
 au FileType tex noremap <Leader>e :VimtexErrors<CR>
 
 
-nnoremap <leader>sf :SignifyFold<CR>
 let g:signify_realtime = 1
 hi SignifySignAdd    ctermbg=black  ctermfg=119
 hi SignifySignDelete ctermbg=black  ctermfg=167
@@ -217,16 +214,11 @@ augroup TerminalStuff
   autocmd TermOpen * setlocal nonumber norelativenumber
 augroup END
 
-" Grepper
-nnoremap <leader>g :Grepper -tool rg -highlight<CR>
-
-runtime plugin/grepper.vim
-let g:grepper.prompt_text = '$t> '
 
 " Ranger
 let g:NERDTreeHijackNetrw = 0
 let g:ranger_replace_netrw = 1
-nnoremap <leader>f :Ranger<CR>
+nnoremap <leader>r :Ranger<CR>
 
 function! StatusLine(current, width)
   let l:s = ''
@@ -260,10 +252,10 @@ function! TabLine()
   return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
 endfunction
 
-let g:crystalline_enable_sep = 0
+let g:crystalline_enable_sep = 1
 let g:crystalline_statusline_fn = 'StatusLine'
 let g:crystalline_tabline_fn = 'TabLine'
-let g:crystalline_theme = 'dracula'
+let g:crystalline_theme = 'onedark'
 
 set showtabline=2
 set guioptions-=e
@@ -273,7 +265,7 @@ set laststatus=2
 let g:vimwiki_list = [{'path':'~/notes'}]
 
 "notational
-let g:nv_search_paths = ['~/notes']
+"let g:nv_search_paths = ['~/notes']
 
 func! WritingMode()
     setlocal formatoptions=1
@@ -312,3 +304,19 @@ command! -nargs=0 WritingMode call WritingMode()
 "pandoc
 let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#command#autoexec_command = "Pandoc! pdf" 
+
+"grep
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+nnoremap <leader>g :RG 
+nnoremap <silent> <leader>/ :call RipgrepFzf(expand('<cword>'), 0)<CR>
+
+let g:vista_default_executive='coc'
