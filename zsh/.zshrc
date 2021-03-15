@@ -1,39 +1,19 @@
-### Added by Zinit's installer
 source ~/.zinit/bin/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit installer's chunk
 
-##### BEGIN Zinit stuff #####
-# Load the pure theme, with zsh-async library that's bundled with it.
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma/history-search-multi-word
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
-
-# cd
-zinit ice wait lucid
 zinit light changyuheng/zsh-interactive-cd
-
-# History substring searching
 zinit light zsh-users/zsh-history-substring-search
-
-# autosuggestions, trigger precmd hook upon load
-zinit ice wait lucid atload'_zsh_autosuggest_start'
-zinit light zsh-users/zsh-autosuggestions
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
-
-# Tab completions
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
+zinit light agkozak/zsh-z
+zinit light esc/conda-zsh-completion
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
 
-# Syntax highlighting
-zinit ice wait lucid atinit'zpcompinit; zpcdreplay'
-zinit light zdharma/fast-syntax-highlighting
-
-zinit load agkozak/zsh-z
-
-
-##### END Zinit stuff #####
-#
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
@@ -42,35 +22,32 @@ HISTFILE=~/.zhistory
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-setopt AUTO_CD
-setopt MULTIOS
-setopt GLOB_COMPLETE
-setopt ZLE
-setopt NO_CASE_GLOB
-setopt EXTENDED_GLOB
-setopt NUMERIC_GLOB_SORT
-setopt RC_EXPAND_PARAM
-setopt EXTENDED_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_FIND_NO_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_BEEP
+setopt auto_cd
+setopt extended_glob
+setopt extended_history
+setopt glob_complete
+setopt hist_beep
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt inc_append_history
+setopt multios
+setopt no_case_glob
+setopt numeric_glob_sort
+setopt rc_expand_param
+setopt share_history
+setopt zle
 
-export KEYTIMEOUT=1
-
-alias pacman='sudo pacman'
 alias ipy='ipython3'
 alias vim='nvim'
 alias ls='exa'
+alias g='guild'
 
+export KEYTIMEOUT=1
 export IPYTHONDIR=~/.config/ipython
-
-p() {
-    yay -S --noconfirm "$1"
-}
 
 f(){
     if [ -z "$RANGER_LEVEL" ] 
@@ -81,27 +58,19 @@ f(){
     fi
 }
 
-# Use ~~ as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER='~~'
 
-# Options to fzf command
-export FZF_COMPLETION_OPTS='+c -x'
-
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
 
-# Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 export FZF_DEFAULT_OPTS='--height 30% --reverse --black'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_COMPLETION_TRIGGER='~~'
+export FZF_COMPLETION_OPTS='+c -x'
 
 # Don't bind these keys until ready
 bindkey -v '^K' history-substring-search-up
@@ -109,7 +78,32 @@ bindkey -v '^J' history-substring-search-down
 bindkey -v '^R' fzf-history-widget
 bindkey "" autosuggest-accept
 
-autoload -Uz compinit
-compinit
+zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
+
+export XDG_CONFIG_HOME=/home/evgenii.gorchakov/.config
+export EDITOR="nvim"
+
+path=(
+  /usr/local/{bin,sbin}
+  /home/evgenii.gorchakov/.cargo/bin
+  /usr/local/cuda/bin
+  $path
+  )
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/evgenii.gorchakov/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/evgenii.gorchakov/.miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/evgenii.gorchakov/.miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/evgenii.gorchakov/.miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

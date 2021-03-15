@@ -67,25 +67,25 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: Input Mono Narrow
-    style: Extra Light
+    family: Iosevka Nerd Font Mono
+    style: Regular
 
   bold:
-    family: Input Mono Narrow
-    style: Light
+    family: Iosevka Nerd Font Mono
+    style: Medium
 
   italic:
-    family: Input Mono Narrow
-    style: Extra Light Italic
+    family: Iosevka Nerd Font Mono
+    style: Light Italic
 
   # Point size
-  size: 16.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0 
-    y: 4
+    y: 1
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
@@ -94,65 +94,42 @@ font:
     x: 0
     y: 0 
 
+  # Base16 Bright - alacritty color config
+  # Chris Kempson (http://chriskempson.com)
+  colors:
+    # Default colors
+    primary:
+      background: '0x000000'
+      foreground: '0xe0e0e0'
 
-colors:
-  # Default colors
-  primary:
-    background: '0x000000'
-    foreground: '0xb5b3aa'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x000000'
+      cursor: '0xe0e0e0'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x000000'
-    cursor: '0xb5b3aa'
+    # Normal colors
+    normal:
+      black:   '0x000000'
+      red:     '0xfb0120'
+      green:   '0xa1c659'
+      yellow:  '0xfda331'
+      blue:    '0x6fb3d2'
+      magenta: '0xd381c3'
+      cyan:    '0x76c7b7'
+      white:   '0xe0e0e0'
 
-  # Normal colors
-  normal:
-    black:   '0x000000'
-    red:     '0xff6c60'
-    green:   '0xa8ff60'
-    yellow:  '0xffffb6'
-    blue:    '0x96cbfe'
-    magenta: '0xff73fd'
-    cyan:    '0xc6c5fe'
-    white:   '0xb5b3aa'
-
-  # Bright colors
-  bright:
-    black:   '0x6c6c66'
-    red:     '0xe9c062'
-    green:   '0x242422'
-    yellow:  '0x484844'
-    blue:    '0x918f88'
-    magenta: '0xd9d7cc'
-    cyan:    '0xb18a3d'
-    white:   '0xfdfbee'
+    # Bright colors
+    bright:
+      black:   '0x000000'
+      red:     '0xfc6d24'
+      green:   '0x303030'
+      yellow:  '0x505050'
+      blue:    '0xd0d0d0'
+      magenta: '0xf5f5f5'
+      cyan:    '0xbe643c'
+      white:   '0xffffff'
 
   draw_bold_text_with_bright_colors: false
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  #dim:
-  #  black:   '0x000000'
-  #  red:     '0x8c3336'
-  #  green:   '0x7a8530'
-  #  yellow:  '0x97822e'
-  #  blue:    '0x506d8f'
-  #  magenta: '0x80638e'
-  #  cyan:    '0x497e7a'
-  #  white:   '0x9a9a9a'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '0xff00ff' }`
-  #
-  indexed_colors: []
 
 # Visual Bell
 #
@@ -175,11 +152,6 @@ colors:
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
-  animation: EaseOutExpo
-  duration: 0
-  color: '0xffffff'
-
 # Background opacity
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
@@ -242,8 +214,6 @@ selection:
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: true
 
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   # Cursor style
